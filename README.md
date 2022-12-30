@@ -13,10 +13,5 @@
 * **Vaccine_time_distribution.csv** contains the probability distribution of the timing of the latest shot by age group and dose from [Cai et al.](https://www.nature.com/articles/s41591-022-01855-7#Sec14)
 * **LHS_sample_for_local_sen_original.csv** contains 100 sets of intervention parameters sampled randomly by the Latin hypercube method from the full parameter space, while **LHS_sample_for_local_sen_China.csv**, **LHS_sample_for_local_sen_SH.csv**, **LHS_sample_for_local_sen_SZ.csv**, and **LHS_sample_for_local_sen_SY.csv** contain the samples after adjusting for the number of hospital and ICU beds per capita for each location
 
- 
-
-
-**Shanghai_VacCoverage.csv**, **Shenzhen_VacCoverage.csv**, and **Shiyan_VacCoverage.csv** contain the vaccine coverage by age and dose for these four locations
-
 ## Results
 ## Figures
