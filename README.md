@@ -19,6 +19,8 @@ LOCATIONX represents China, SH (Shanghai), SZ (Shenzhen), and SY (Shiyan)
 * **LOCATIONX_best_worst_Sens.rda** contains results from **Simulation_best_worst_scenarios_with_sens.R**. They were used to make Figure 2. 
 * **Local_Sens_LOCATIONX_baseline.rda** contains results from **Simulation_Random100.R**. They were used to make Figure 3 and S5.
 * **Local_Sens_China_baseline_1m.rda**, **Local_Sens_China_baseline_2m.rda** and **Local_Sens_China_baseline_1m.rda** contains the results when the size of synthetic population was set to 1, 2, or 5 million for China under the baseline sceanrio. They were used to make Figure S3.
+* **Local_Sens_LOCATIONX_VacOpt.rda** is the results of 100 random samples from the full parameter space for LOCATIONX. They were used to generate Figures 3 and S5. 
+* **Local_Sens_LOCATIONX_VacOpt_cut.rda** and **Local_Sens_LOCATIONX_baseline_cut.rda** are the results of the 100 random sample from the reduced parameter space for LOCATIONX. They were used to generate Figures 4 and S7-10.
 
 ## Figures
 Contains pdf files for the figures in the manuscript
