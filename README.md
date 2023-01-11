@@ -21,3 +21,4 @@ LOCATIONX represents China, SH (Shanghai), SZ (Shenzhen), and SY (Shiyan)
 * **Local_Sens_China_bseline_1m.rda**, **Local_Sens_China_bseline_2m.rda** and **Local_Sens_China_bseline_1m.rda** contains the results when the size of synthetic population was set to 1, 2, or 5 million for China under the baseline sceanrio. They were used to make Figure S3.
 
 ## Figures
+Contains pdf files for the figures in the manuscript
