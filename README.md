@@ -4,7 +4,7 @@
 * **Model_EstimateBeta.R** contains code for estimating beta according to the specified R0
 * **Model_SampleNext.R** contains code for sampling the next state and time to the next state
 * **Model_Main.R** contains code for the individual-based model
-* **Model_Simulation.R** contains example code for running the simulations for China with the 100 sets of intervention parameters randomly sampled by the Latin hypercube sampling method. Simulations for other places can be simply adapted from this file.
+* **Model_Simulation.R** contains example code for running the simulations for China with the 100 sets of intervention parameters randomly sampled by the Latin hypercube sampling method. Simulations for other places can be simply adapted from this file by changing the input file for the parameter sets, age structure and vaccine coverage
 
 ## Data
 * **ContactMat_ZJJ.csv** contains the age-mixing pattern from [a survey](https://www.nature.com/articles/s41598-019-51609-8) conducted in Shanghai in 2017
