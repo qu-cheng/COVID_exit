@@ -13,7 +13,7 @@ source("Model_EstimateBeta.R") # the function for estimating beta to get the des
 
 
 par.sample <- read.csv("Data/LHS_sample_for_local_sen_China.csv")  # read in the 100 latin hypercube samples
-Age.structure <- read.csv("Data/China_example_age_structure.csv")  # age structure for different locations
+Age.structure <- read.csv("Data/Age_structure.csv")  # age structure for different locations
 vaccine.time <- read.csv("Data/Vaccine_time_distribution.csv")  # read in the time distribution of the vaccination time
 
 
@@ -57,7 +57,7 @@ for(rep.i in 1:100)
   
   
   Vaccine.data <- Age.structure %>%
-    gather("City","Pop", Shenzhen2010:China2020) %>%
+    gather("City","Pop", Shenzhen2020:China2020) %>%
     filter(City == "China2020") %>%
     mutate(Pop = round(Pop*Total.popsize)) %>%
     mutate(V0 = round(Pop*Vaccine.cov$V0), V1 = round(Pop*Vaccine.cov$V1), V2 = round(Pop*Vaccine.cov$V2), V3 = round(Pop*Vaccine.cov$V3))
@@ -167,9 +167,7 @@ for(rep.i in 1:100)
                        surv.rate.M = 0.75,
                        home.mild.reduced = 0.8,
                        child.sus = c(1, 1),
-                       home.nocare.h = 8,
-                       home.nocare.c = 10,
-                       hospital.nocare.c = 5)
+                       home.nocare.h = 9)
   }, mc.cores = nc)
   
   result.current<- do.call(rbind, results) %>%

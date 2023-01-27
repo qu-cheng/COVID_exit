@@ -7,10 +7,7 @@ model_run <- function(Agents,   # data.table for the agents
                       child.sus = c(1,1),    # relative infectiousness of children (<10) and adolescents (10-19)
                       home.mild.reduced = 0.8,   # reduction in contact rate when self-isolated
                       surv.rate.M = 0.75,     # proportion of mild cases being detected
-                      home.nocare.h = 8,      # When not get hospital beds, the chances of severe cases to process to critical and death will increase by 8 times
-                      home.nocare.c = 10,    # When not get ICU bed and staying at home, the chance of critical cases to process to death will increase by 10 times
-                      hospital.nocare.c = 5 # When not get ICU bed and staying at home, the chance of critical cases to process to death will increase by 5 times
-)
+                      home.nocare.h = 9)
 {
   Agents[, ":="(Next.Inf.Stat = "NA", Next.Time = 0, Drug = -999, Identified = -999, Place = "Home")]
   source("Model_Parameters.R")
@@ -127,12 +124,10 @@ model_run <- function(Agents,   # data.table for the agents
   # processing data for prob while hospitalized
   pC.Hosp <- copy(pC)
   pC.Hosp[, Place := "Hospital"]
-  pC.Hosp[, pCD.baseline := pCD.baseline*(1 + hospital.nocare.c)]
   
   # processing data for prob while hospitalized
   pC.Home <- copy(pC)
   pC.Home[, Place := "Home"]
-  pC.Home[, pCD.baseline := pCD.baseline*(1 + home.nocare.c)]
   
   pC <- rbindlist(list(pC, pC.Hosp, pC.Home))
   setkey(pC, Age, VaccStatus, Inf.Stat, Next.Inf.Stat, Place)

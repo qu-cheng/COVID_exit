@@ -29,13 +29,13 @@ ENext.sample <- function(dat, t, pA)
         pA := pA.baseline]
     
     dat[!is.na(pA.baseline) & VaccStatus %in% c("V1", "V2"), 
-        pA := 1-(1-pA.baseline)*(1 - pmax(VE - 0.076617* (t-Vaccine.Time)/30, VE*0.13))]  # reestimate the vaccine effectiveness after waning
+        pA := 1-(1-pA.baseline)*(1 - pmax(VE - 0.076617* (t-Vaccine.Time)/30, VE*0.13))]
     
     dat[!is.na(pA.baseline) & VaccStatus %in% c("V3"), 
-        pA := 1-(1-pA.baseline)*(1 - pmax(VE - 0.079355* (t-Vaccine.Time)/30, VE*0.62))] # reestimate the vaccine effectiveness after waning
+        pA := 1-(1-pA.baseline)*(1 - pmax(VE - 0.079355* (t-Vaccine.Time)/30, VE*0.62))] 
     
-    dat[!is.na(pA.baseline), ":=" (Next.Inf.Stat = ifelse(runif(.N) <= pA, "A", "P"),   # sample the next state
-                                   Next.Time = t + rgamma(.N, shape = 3.26, scale = 1.227))]   # sample time to the next state
+    dat[!is.na(pA.baseline), ":=" (Next.Inf.Stat = ifelse(runif(.N) <= pA, "A", "P"), 
+                                   Next.Time = t + rgamma(.N, shape = 3.26, scale = 1.227))]
     
     dat[, ":="(pA.baseline = NULL, pA = NULL, VE = NULL)]
   }
@@ -58,7 +58,7 @@ ANext.sample <- function(dat, t, known.case, bed.remain)
     dat[Inf.Stat == "A" & Next.Inf.Stat == "NA", Next.Inf.Stat := "R"]  
     
     # sample time to transit to the next status
-    dat[Inf.Stat == "A" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 3.175, scale = 1.977)]   
+    dat[Inf.Stat == "A" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 3.175, scale = 1.977)]   # covasim
   }
 }
 
@@ -79,7 +79,7 @@ PNext.sample <- function(dat, t, known.case, bed.remain)
     dat[Inf.Stat == "P" & Next.Inf.Stat == "NA", ":="(Next.Inf.Stat = "M")]  
     
     # sample time to transit to the next status
-    dat[Inf.Stat == "P" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 0.7676, scale = 2.345)]  
+    dat[Inf.Stat == "P" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 0.7676, scale = 2.345)]   # covasim
   }
 }
 
@@ -116,11 +116,11 @@ MNext.sample <- function(dat, t, bed.remain, surv.rate.M, pM)
               pMC.VE = 0)]
     
     
-    dat[Inf.Stat == "M" & Next.Inf.Stat == "NA" & VaccStatus %in% c("V1", "V2"),  # reestimate the vaccine effectiveness after waning
+    dat[Inf.Stat == "M" & Next.Inf.Stat == "NA" & VaccStatus %in% c("V1", "V2"),
         ":=" (pMH.VE = pmax(pMH.VE - 0.025559*(t-Vaccine.Time)/30, pMH.VE*0.88),
               pMC.VE = pmax(pMC.VE - 0.025559*(t-Vaccine.Time)/30, pMC.VE*0.88))]
     
-    dat[Inf.Stat == "M" & Next.Inf.Stat == "NA" & VaccStatus %in% c("V3"),   # reestimate the vaccine effectiveness after waning
+    dat[Inf.Stat == "M" & Next.Inf.Stat == "NA" & VaccStatus %in% c("V3"),
         ":=" (pMH.VE = pmax(pMH.VE -0.057485*(t-Vaccine.Time)/30, pMH.VE*0.95),
               pMC.VE = pmax(pMC.VE -0.057485*(t-Vaccine.Time)/30, pMC.VE*0.95))]
     
@@ -134,9 +134,9 @@ MNext.sample <- function(dat, t, bed.remain, surv.rate.M, pM)
     
     
     # Sample time to transit to the next status
-    dat[Inf.Stat == "M" & Next.Inf.Stat == "R" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 2.47, scale = 1.82)]   
-    dat[Inf.Stat == "M" & Next.Inf.Stat == "H" & Next.Time == 0, ":="(Next.Time = t + rgamma(.N, shape = 4.8400000, scale = 0.4545455))]  
-    dat[Inf.Stat == "M" & Next.Inf.Stat == "C" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 4.8400000, scale = 0.4545455)] 
+    dat[Inf.Stat == "M" & Next.Inf.Stat == "R" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 2.47, scale = 1.82)]   # covasim
+    dat[Inf.Stat == "M" & Next.Inf.Stat == "H" & Next.Time == 0, ":="(Next.Time = t + rgamma(.N, shape = 4.8400000, scale = 0.4545455))]   # covasim
+    dat[Inf.Stat == "M" & Next.Inf.Stat == "C" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 4.8400000, scale = 0.4545455)]   # assumption
     
     dat[, ":="(pMR = NULL, 
                pMH = NULL, 
@@ -175,9 +175,9 @@ HNext.sample <- function(dat, t, bed.remain, pH)
     dat[Inf.Stat == "H" & Next.Inf.Stat == "NA" & VaccStatus %in% c("V0"), 
         VE := 0]
     dat[Inf.Stat == "H" & Next.Inf.Stat == "NA" & VaccStatus %in% c("V1", "V2"), 
-        VE := pmax(VE - 0.025559*(t-Vaccine.Time)/30, VE*0.9)]   # reestimate the vaccine effectiveness after waning
+        VE := pmax(VE - 0.025559*(t-Vaccine.Time)/30, VE*0.9)]    # reestimate the vaccine effectiveness after waning
     dat[Inf.Stat == "H" & Next.Inf.Stat == "NA" & VaccStatus %in% c("V3"), 
-        VE := pmax(VE -0.057485*(t-Vaccine.Time)/30, VE*0.966)]  # reestimate the vaccine effectiveness after waning
+        VE := pmax(VE -0.057485*(t-Vaccine.Time)/30, VE*0.966)]    # reestimate the vaccine effectiveness after waning
     
     dat[Inf.Stat == "H" & Next.Inf.Stat == "NA", 
         pHD := pmin(pHD.baseline*(1-VE), 1)]
@@ -188,8 +188,8 @@ HNext.sample <- function(dat, t, bed.remain, pH)
     dat[Inf.Stat == "H" & Next.Inf.Stat == "NA", Next.Inf.Stat := c("R","D")[min(which(cumsum(unlist(.SD))>runif(.N)))], .SDcols=c("pHR","pHD"), by = ID]
     
     # Sample time to transit to the next status
-    dat[Inf.Stat == "H" & Next.Inf.Stat == "R" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 8.25, scale = 2.19)]   
-    dat[Inf.Stat == "H" & Next.Inf.Stat == "D" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 16, scale = 0.75)]   
+    dat[Inf.Stat == "H" & Next.Inf.Stat == "R" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 8.25, scale = 2.19)]   # covasim
+    dat[Inf.Stat == "H" & Next.Inf.Stat == "D" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 16, scale = 0.75)]   # assumption
     
     dat[, ":="(pHR = NULL, 
                pHD = NULL, 
@@ -216,7 +216,7 @@ CNext.sample <- function(dat, t, bed.remain, pC)
     bed.remain[, ICU := bed.ICU - sum(Agents$Place == "ICU")]
     
     # for those not get ICU beds and staying at home, assign hospital beds
-    no.row.home <- dat[Inf.Stat == "C" & Next.Inf.Stat == "NA" & Place == "Home", which = TRUE]   # for those at home, assign at least a hospital bed
+    no.row.home <- dat[Inf.Stat == "C" & Next.Inf.Stat == "NA" & Place == "Home", which = TRUE]   
     if(length(no.row.home) > 0) {dat[sample.Q(no.row.home, min(bed.remain$hospital, length(no.row.home))), Place := "Hospital"]}
     bed.remain[, hospital := bed.hospital - sum(Agents$Place == "Hospital")]
     
@@ -227,31 +227,32 @@ CNext.sample <- function(dat, t, bed.remain, pC)
     
     dat[Inf.Stat == "C" & Next.Inf.Stat == "NA" & VaccStatus =="V0", 
         VE := 0]
-    dat[Inf.Stat == "C" & Next.Inf.Stat == "NA" & VaccStatus %in% c("V1", "V2"),   # reestimate the vaccine effectiveness after waning
+    dat[Inf.Stat == "C" & Next.Inf.Stat == "NA" & VaccStatus %in% c("V1", "V2"),    # reestimate the vaccine effectiveness after waning
         VE := pmax(VE - 0.025559*(t-Vaccine.Time)/30, VE*0.9)]
     dat[Inf.Stat == "C" & Next.Inf.Stat == "NA" & VaccStatus %in% c("V3"),    # reestimate the vaccine effectiveness after waning
         VE := pmax(VE - 0.057485*(t-Vaccine.Time)/30, VE*0.966)]
     
-    dat[Inf.Stat == "C" & Next.Inf.Stat == "NA", 
+    dat[Inf.Stat == "C" & Next.Inf.Stat == "NA" & Place == "ICU", 
         pCD := pmin(pCD.baseline*(1-VE), 1)]
+    
+    dat[Inf.Stat == "C" & Next.Inf.Stat == "NA" & Place %in% c("Home", "Hospital"),
+        pCD := 1]
+    
     dat[Inf.Stat == "C" & Next.Inf.Stat == "NA", 
         pCR := 1-pCD]
-    
     
     # sample the next state
     dat[pC, on = .(Age, VaccStatus, Inf.Stat, Next.Inf.Stat, Place), ":="(pCD = pCD, pCR = pCR)]
     dat[Inf.Stat == "C" & Next.Inf.Stat == "NA", Next.Inf.Stat := c("R","D")[min(which(cumsum(unlist(.SD))>runif(.N)))], .SDcols=c("pCR","pCD"), by = ID]
     
     # Sample time to transit to the next status
-    dat[Inf.Stat == "C" & Next.Inf.Stat == "R" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 8.25, scale = 2.19)] 
-    dat[Inf.Stat == "C" & Next.Inf.Stat == "D" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 4.97, scale = 2.15)]   
-    
+    dat[Inf.Stat == "C" & Next.Inf.Stat == "R" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 8.25, scale = 2.19)]   # covasim
+    dat[Inf.Stat == "C" & Next.Inf.Stat == "D" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 4.97, scale = 2.15)]   # covasim
     
     dat[, ":="(pCR = NULL, 
                pCD = NULL, 
                VE = NULL,
                pCD.baseline = NULL)]
-    
   }
 }
 

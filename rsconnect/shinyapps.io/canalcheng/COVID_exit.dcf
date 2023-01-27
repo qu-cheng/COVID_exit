@@ -1,0 +1,14 @@
+name: COVID_exit
+title: COVID_exit
+username:
+account: canalcheng
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8011596
+bundleId: 6746063
+url: https://canalcheng.shinyapps.io/COVID_exit/
+when: 1674023725.12405
+lastSyncTime: 1674023725.12406
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Figures.R|Latin_Hypercube_Sampling.R|Model_EstimateBeta.R|Model_Main.R|Model_Parameters.R|Model_SampleNext.R|Save_model_for_Shiny.R|Simulation_best_worst_scenarios_with_sens.R|Simulation_change_one_to_worst_from_best.R|Simulation_Ramdom100.R|test.csv|Data|Figures|Results

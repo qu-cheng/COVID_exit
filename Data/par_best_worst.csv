@@ -1,0 +1,9 @@
+Antiviral,Hospital,ICU,Mask,Vac0_19,Vac20_59,Vac60_69,Vac_70above,Location,Scenario
+1,0.0144,0.00048,1,1,1,1,1,China,Best
+1,0.0144,0.00048,1,1,1,1,1,Shanghai,Best
+1,0.0144,0.00048,1,1,1,1,1,Shenzhen,Best
+1,0.0144,0.00048,1,1,1,1,1,Shiyan,Best
+0,0.005058216,4.37E-05,0,0,0,0,0,China,Worst
+0,0.00578,6.14E-05,0,0,0,0,0,Shanghai,Worst
+0,0.00327,3.42E-05,0,0,0,0,0,Shenzhen,Worst
+0,0.00682,5.13E-05,0,0,0,0,0,Shiyan,Worst
