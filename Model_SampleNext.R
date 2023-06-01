@@ -34,13 +34,13 @@ ENext.sample <- function(dat, t, pA)
     dat[!is.na(pA.baseline) & VaccStatus %in% c("V3"), 
         pA := 1-(1-pA.baseline)*(1 - pmax(VE - 0.079355* (t-Vaccine.Time)/30, VE*0.62))] 
     
-    dat[!is.na(pA.baseline), ":=" (Next.Inf.Stat = ifelse(runif(.N) <= pA, "A", "P"), 
-                                   Next.Time = t + rgamma(.N, shape = 3.26, scale = 1.227))]
+    dat[!is.na(pA.baseline), ":=" (Next.Inf.Stat = ifelse(runif(.N) <= pA, "A", "P"))]
+    dat[!is.na(pA.baseline), ":=" (Next.Inf.Stat.path = Next.Inf.Stat)]
+    dat[!is.na(pA.baseline), ":=" (Next.Time = t + rgamma(.N, shape = 3.26, scale = 1.227))]
     
     dat[, ":="(pA.baseline = NULL, pA = NULL, VE = NULL)]
   }
 }
-
 
 
 
@@ -82,6 +82,7 @@ PNext.sample <- function(dat, t, known.case, bed.remain)
     dat[Inf.Stat == "P" & Next.Time == 0, Next.Time := t + rgamma(.N, shape = 0.7676, scale = 2.345)]   # covasim
   }
 }
+
 
 
 
@@ -147,7 +148,6 @@ MNext.sample <- function(dat, t, bed.remain, surv.rate.M, pM)
                pMC.baseline = NULL)]
   }
 }
-
 
 
 
